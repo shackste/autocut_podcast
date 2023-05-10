@@ -17,49 +17,58 @@ The scripts uses command line calls of ffmpeg to cut and combine the audio and v
 Record a podcast using zoom and save the audio_files and video_file separately.
 
 ### 2. Cut the audio files into chunks
-
+Required for recordings longer than 60 minutes (maximum file size to Enhance audio).
+```
 python cut.py <audio_file>
 
 -> chunk_0.mp3, chunk_1.mp3, ...
-
+```
 OR
-
+```
 from cut import cut
 cut("audio_file.m4a")
-
+```
 
 Best practice is to cut tracks for different persons individually.
-(TODO: autotamize this)
+(TODO: autotamize combining the tracks of different persons
 
 ### 3. Enhance the audio chunks
 
 Use https://podcast.adobe.com/Enhance to enhance the audio chunks.
-
+```
 -> "chunk_0 (enhanced).mp3", "chunk_1 (enhanced).mp3", ...
-
+```
 ### 4. Combine the audio chunks
-
+```
 python combine.py <number of chunks> <video_file>
 
 -> final_output_file.mp4
-
+```
 OR
-
+```
 from combine import combine
-combine(<number of chunks>, "video_file.mp4", final_output_file=<enhanced_videa_file>)
-
+combine(<number of chunks>, "video_file.mp4", final_output_file=<enhanced_video_file>)
+```
 
 ### 5. Cut the video into episodes
+
+Given a set of start and end times, the video is cut into episodes, with intro and outro video added at beginning and end of each episode.
+
+```
 
 python episodes.py <enhanced_video_file> <episode_times>
 
 -> episode_0.mp4, episode_1.mp4, ...
 
 episode_times = "start,end|start,end|..." (start and end in seconds)
+```
+
 
 OR
 
+```
 from episodes import episodes
-episodes("enhanced_video_file.mp4", [[start,end], [start,end], ...])
+episodes("enhanced_video_file.mp4", [[start,end], [start,end], ...], intro_file=<intro_file>, outro_file=<outro_file>
 
 -> episode_0.mp4, episode_1.mp4, ...
+```
