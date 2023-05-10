@@ -11,6 +11,18 @@ Finally, using the episodes.py script and a list of start and end times, the vid
 ### ffmpeg
 The scripts uses command line calls of ffmpeg to cut and combine the audio and video files.
 
+## Installation
+
+Simply download and run the scripts
+
+OR
+
+```
+pip install git+https://github.com/shackste/autocut_podcast
+
+python
+>>> import autocut_podcast as ap
+```
 
 ## Usage
 ### 1. Record
@@ -25,8 +37,7 @@ python cut.py <audio_file>
 ```
 OR
 ```
-from cut import cut
-cut("audio_file.m4a")
+ap.cut.cut("audio_file.m4a")
 ```
 
 Best practice is to cut tracks for different persons individually.
@@ -46,13 +57,12 @@ python combine.py <number of chunks> <video_file>
 ```
 OR
 ```
-from combine import combine
-combine(<number of chunks>, "video_file.mp4", final_output_file=<enhanced_video_file>)
+ap.combine.combine(<number of chunks>, "video_file.mp4", final_output_file=<enhanced_video_file>)
 ```
 
 ### 5. Cut the video into episodes
 
-Given a set of start and end times, the video is cut into episodes, with intro and outro video added at beginning and end of each episode.
+Given a list of start and end times in seconds, the enhanced video is cut into episodes, with intro and outro video added at beginning and end of each episode.
 
 ```
 
@@ -60,15 +70,14 @@ python episodes.py <enhanced_video_file> <episode_times>
 
 -> episode_0.mp4, episode_1.mp4, ...
 
-episode_times = "start,end|start,end|..." (start and end in seconds)
+episode_times = "start,end|start,end|..."
 ```
 
 
 OR
 
 ```
-from episodes import episodes
-episodes("enhanced_video_file.mp4", [[start,end], [start,end], ...], intro_file=<intro_file>, outro_file=<outro_file>
+ap.episodes.episodes("enhanced_video_file.mp4", [[start,end], [start,end], ...], intro_file=<intro_file>, outro_file=<outro_file>
 
 -> episode_0.mp4, episode_1.mp4, ...
 ```
